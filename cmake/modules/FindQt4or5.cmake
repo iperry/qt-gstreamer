@@ -49,10 +49,6 @@ macro(_qt4or5_component_names_to_qt_components output_list)
   list(REMOVE_DUPLICATES ${output_list})
 endmacro()
 
-if (Qt4or5_FIND_QUIETLY)
-  set(_Qt4or5_FIND_PACKAGE_ARGS QUIET)
-endif()
-
 _qt4or5_component_names_to_qt_components(_Qt4or5_FIND_COMPONENTS ${Qt4or5_FIND_COMPONENTS})
 _qt4or5_component_names_to_qt_components(_Qt4or5_FIND_COMPONENTS ${Qt4or5_FIND_OPTIONAL_COMPONENTS})
 
@@ -66,6 +62,7 @@ if (${QT_VERSION} STREQUAL "5")
 
   # Find Qt5 modules
   foreach (qt_component ${_Qt4or5_FIND_COMPONENTS})
+      message("LOoking for package ${qt_component}")
     find_package(Qt5${qt_component} ${Qt5_MIN_VERSION} ${_Qt4or5_FIND_PACKAGE_ARGS})
     if (Qt5${qt_component}_FOUND)
       _qt4or5_component_name_from_qt_component(component ${qt_component})
